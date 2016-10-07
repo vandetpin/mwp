@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Inventors</title>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1>Inventors list</h1>
+    <table class="table table-striped">
+      <tr>
+        <th>First</th>
+        <th>Last</th>
+        <th>Year</th>
+      </tr>
+      
+      <% data.forEach((e)=>{ %>
+        <tr>
+          <td><%= e.first %></td>
+          <td><%= e.last %></td>
+          <td><%= e.year %></td>
+        </tr>
+      <% }) %>
+    </table>
+  </body>
+</html>
