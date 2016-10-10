@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Contact Us</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1>Contact Us</h1>
+    <form method='post'>
+      Full name: <input type='text' name='name' /><br>
+      Type: <select name='type'>
+        <option value='suggestion'>Suggestion</option>
+        <option value='complaint'>Complaint</option>
+      </select><br>
+      Message: <input type='text' name='message' /><br>
+      <input type='hidden' name='_csrf' value='<%=csrfToken%>' />
+      <input type='submit' />
+    </form>
+
+    <% if(errors) { %>
+      <% errors.forEach((e)=>{ %>
+        <p><%= e.msg%></p>    
+      <% }) %>
+    <% } %>
+  </body>
+</html>
