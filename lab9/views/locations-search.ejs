@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>search Location</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1>Get nearest 3 locations</h1>
+    <form method='post'>
+      Select your current location: <br>
+      latitude: <input type="text" name='latitude' class="gllpLatitude" /> <br>
+      longitude: <input type="text" name="longitude" class="gllpLongitude"  /> <br>
+      <input type='hidden' name='_csrf' value='<%=csrfToken%>' />
+      <input type='submit' />
+    </form>
+
+    <% if(errors) { %>
+      <% errors.forEach((e)=>{ %>
+        <p><%= e.msg%></p>    
+      <% }) %>
+    <% } %>
+  </body>
+</html>

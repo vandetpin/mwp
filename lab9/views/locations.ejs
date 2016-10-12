@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Search Location</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1>Get nearest 3 Locations</h1>
+    <form method='post'>
+      Name: <input type='text' name='name' /><br>
+      Category: <select name='category'>
+        <option value='mart'>Mart</option>
+        <option value='pub'>Pub</option>
+      </select><br>
+
+      Enter location: <br>
+      latitude: <input type="text" name='latitude' class="gllpLatitude" /> <br>
+      longitude: <input type="text" name="longitude" class="gllpLongitude"  /> <br>
+   
+      <input type='hidden' name='_csrf' value='<%=csrfToken%>' />
+      <input type='submit' />
+    </form>
+
+    <% if(errors) { %>
+      <% errors.forEach((e)=>{ %>
+        <p><%= e.msg%></p>    
+      <% }) %>
+    <% } %>
+  </body>
+  
+</html>
