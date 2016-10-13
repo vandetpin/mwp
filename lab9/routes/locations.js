@@ -4,11 +4,11 @@ var fs = require('fs');
 var MongoClient = require('mongodb').MongoClient;
 
 router.get('/', function(req, res, next) {
-  res.render('locations', {errors : null});
+  res.render('locations', {errors : null, results : null});
 });
 
 router.get('/search', function(req, res, next) {
-  res.render('locations-search', {errors : null});
+  res.render('locations-search', {errors : null, search : [0, 0], results : null});
 });
 
 
@@ -36,7 +36,7 @@ router.post('/', function(req, res, next) {
             location : [parseFloat(req.body.longitude), parseFloat(req.body.latitude)]
           };
           console.log(data);
-          db.collection('lab2').insert(data, (err, doc) => {
+          db.collection('locations').insert(data, (err, doc) => {
             if(err) throw err;
 
             // send response to user
@@ -49,27 +49,29 @@ router.post('/', function(req, res, next) {
 
 //search location
 router.post('/search', function(req, res, next) { 
-     MongoClient.connect("mongodb://localhost:27017/testDB", function(err, db) {
-          if(err) { return console.dir(err); }
 
-          const criteria = {
+     MongoClient.connect("mongodb://localhost:27017/testDB", function(err, db) {
+        if(err) { return console.dir(err); }
+        
+        const criteria = {
+            category : req.body.category,
             location : {
               '$near' : [parseFloat(req.body.longitude), parseFloat(req.body.latitude)]
             }
-          };
+        };
 
-          const option = {
-            limit : 10  
-          };
-          db.collection('lab2').find(criteria, {}, option, (err, doc) => {
-            if(err) throw err;
+        const option = {
+          limit : 3  
+        };
 
-            console.log("sdlsjdlksjdlkjlkjlkjl");
-            console.log(doc);
-            // send response to user
-            //res.writeHead(200);
-            //res.end(JSON.stringify(doc));
-          });
+        console.dir(criteria);
+        db.collection('locations').find(criteria, {}, option).toArray((err, doc) => {
+          if(err) throw err;
+
+          console.dir(doc);
+          // send response to user
+          res.render('locations-search', {errors : null, results : doc, search : criteria});
+        });
       });
 });
 

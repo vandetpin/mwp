@@ -7,17 +7,27 @@
   <body>
     <h1>Get nearest 3 locations</h1>
     <form method='post'>
-      Select your current location: <br>
-      latitude: <input type="text" name='latitude' class="gllpLatitude" /> <br>
-      longitude: <input type="text" name="longitude" class="gllpLongitude"  /> <br>
+      Enter your current location: <br>
+      latitude: <input type="text" name='latitude'  value='0'/> <br>
+      longitude: <input type="text" name="longitude"  value='0'/> <br>
+      <br>
+      Choose Category: <select name='category'>
+        <option value='mart'>Mart</option>
+        <option value='pub'>Pub</option>
+        <option value='shop'>Shop</option>
+      </select><br>
       <input type='hidden' name='_csrf' value='<%=csrfToken%>' />
       <input type='submit' />
     </form>
 
-    <% if(errors) { %>
-      <% errors.forEach((e)=>{ %>
-        <p><%= e.msg%></p>    
+    <% if(results) {%>
+      <% results.forEach(r=>{ %>
+        <br>
+        <h3>Name: <%= r.name %></h3>
+        <p>Category: <%= r.category %></p>
+        <p>Location: <%= r.location %></p>
       <% }) %>
     <% } %>
+
   </body>
 </html>

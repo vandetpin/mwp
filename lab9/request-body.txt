@@ -1,1 +1,0 @@
-{"name":"Shop","category":"pub","latitude":"13.14133745847064","longitude":"18.336181640625","_csrf":"0tpE0UX8-i2Es28t1ei5sg1Za-TGdzg35Rlc"}
