@@ -1,32 +1,32 @@
 import { Component, OnInit } from '@angular/core';
-import { Hero } from './hero';
-import { HeroService } from './hero.service';
+import { Product } from './product';
+import { ProductService } from './product.service';
 @Component({
   selector: 'my-app',
   template: `
     <h1>{{title}}</h1>
-    <h2>My Heroes</h2>
-    <ul class="heroes">
-      <li *ngFor="let hero of heroes"
-        [class.selected]="hero === selectedHero"
-        (click)="onSelect(hero)">
-        <span class="badge">{{hero.id}}</span> {{hero.name}}
+    <h2>My Products</h2>
+    <ul class="products">
+      <li *ngFor="let product of products"
+        [class.selected]="product === selectedProduct"
+        (click)="onSelect(product)">
+        <span class="badge">{{product.id}}</span> {{product.name}}
       </li>
     </ul>
-    <my-hero-detail [hero]="selectedHero"></my-hero-detail>
+    <my-product-detail [product]="selectedProduct"></my-product-detail>
   `,
   styles: [`
     .selected {
       background-color: #CFD8DC !important;
       color: white;
     }
-    .heroes {
+    .products {
       margin: 0 0 2em 0;
       list-style-type: none;
       padding: 0;
       width: 15em;
     }
-    .heroes li {
+    .products li {
       cursor: pointer;
       position: relative;
       left: 0;
@@ -36,20 +36,20 @@ import { HeroService } from './hero.service';
       height: 1.6em;
       border-radius: 4px;
     }
-    .heroes li.selected:hover {
+    .products li.selected:hover {
       background-color: #BBD8DC !important;
       color: white;
     }
-    .heroes li:hover {
+    .products li:hover {
       color: #607D8B;
       background-color: #DDD;
       left: .1em;
     }
-    .heroes .text {
+    .products .text {
       position: relative;
       top: -3px;
     }
-    .heroes .badge {
+    .products .badge {
       display: inline-block;
       font-size: small;
       color: white;
@@ -64,20 +64,24 @@ import { HeroService } from './hero.service';
       border-radius: 4px 0 0 4px;
     }
   `],
-  providers: [HeroService]
+  providers: [ProductService]
 })
 export class AppComponent implements OnInit {
-  title = 'Tour of Heroes';
-  heroes: Hero[];
-  selectedHero: Hero;
-  constructor(private heroService: HeroService) { }
-  getHeroes(): void {
-    this.heroService.getHeroes().then(heroes => this.heroes = heroes);
+  title = 'Tour of Products';
+  products: Product[];
+  selectedProduct: Product;
+
+  constructor(private productService: ProductService) { }
+  getProducts(): void {
+    this.productService.getProducts().then(products => {
+      this.products = products
+      this.selectedProduct = this.products[1];
+    });
   }
   ngOnInit(): void {
-    this.getHeroes();
+    this.getProducts();
   }
-  onSelect(hero: Hero): void {
-    this.selectedHero = hero;
+  onSelect(product: Product): void {
+    this.selectedProduct = product;
   }
 }
