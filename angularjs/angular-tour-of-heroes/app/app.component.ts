@@ -73,7 +73,7 @@ export class AppComponent implements OnInit {
 
   constructor(private productService: ProductService) { }
   getProducts(): void {
-    this.productService.getProducts().then(products => {
+    this.productService.getProductsSlowly().then(products => {
       this.products = products
       this.selectedProduct = this.products[1];
     });
