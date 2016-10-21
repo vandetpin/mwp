@@ -1,22 +1,38 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute, Params }   from '@angular/router';
+import { Location }                 from '@angular/common';
+
 import { Product } from './product';
+import { ProductService } from './product.service';
+
 
 
 @Component({
+  moduleId: module.id,
   selector: 'my-product-detail',
-  template: `
-  <div *ngIf="product">
-    <h2>{{product.name}} details!</h2>
-    <div><label>id: </label>{{product.id}}</div>
-    <div>
-      <label>name: </label>
-      <input [(ngModel)]="product.name" placeholder="name"/>
-    </div>
-  </div>
-`
+  templateUrl: '/app/product-detail.component.html',
+  styleUrls : ['../app/product-detail.component.css']
 
 })
-export class ProductDetailComponent {
+export class ProductDetailComponent implements OnInit{
     @Input()
     product: Product;
+
+    constructor(
+      private productService: ProductService,
+      private route: ActivatedRoute,
+      private location: Location
+    ) {}
+
+    ngOnInit():void {
+      this.route.params.forEach((params: Params) => {
+      let id = +params['id'];
+      this.productService.getProductById(id)
+        .then(p => this.product = p);
+      });  
+    }
+
+    goBack(): void {
+        this.location.back();
+    }
 }

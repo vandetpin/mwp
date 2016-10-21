@@ -13,4 +13,7 @@ export class ProductService {
       .then(() => this.getProducts());
   }
 
+  getProductById(id: number): Promise<Product> {
+    return this.getProducts().then(products => products.find(c=>c.id === id));
+  }
 }
