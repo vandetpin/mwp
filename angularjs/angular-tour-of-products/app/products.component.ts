@@ -17,7 +17,7 @@ export class ProductsComponent implements OnInit {
 
   constructor(private productService : ProductService, private router: Router){}
   getProducts(): void {
-    this.productService.getProductsSlowly().then(products => {
+    this.productService.getProducts().then(products => {
       this.products = products
       this.selectedProduct = this.products[1];
     });
@@ -33,4 +33,24 @@ export class ProductsComponent implements OnInit {
         let link = ['/detail', this.selectedProduct.id];
         this.router.navigate(link);
     }
+
+  delete(product: Product): void {
+    this.productService
+        .delete(product.id)
+        .then(() => {
+          this.products = this.products.filter(h => h !== product);
+          if (this.selectedProduct === product) { this.selectedProduct = null; }
+        });
+  }
+  
+
+  add(name: string): void {
+    name = name.trim();
+    if (!name) { return; }
+    this.productService.create(name)
+      .then(product => {
+        this.products.push(product);
+        this.selectedProduct = null;
+      });
+  }
 }
