@@ -10,8 +10,8 @@ import { Product } from './product';
 @Component({
   moduleId: module.id,
   selector: 'product-search',
-  templateUrl: 'product-search.component.html',
-  styleUrls: [ 'product-search.component.css' ],
+  templateUrl: '/app/product-search.component.html',
+  styleUrls: [ '../app/product-search.component.css' ],
   providers: [ProductSearchService]
 })
 
